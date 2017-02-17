@@ -1,0 +1,7 @@
+D:\workspace\oschina\CString\CString\bin\Release\CString.dll
+D:\workspace\oschina\CString\CString\bin\Release\CString.pdb
+D:\workspace\oschina\CString\CString\obj\Release\CString.dll
+D:\workspace\oschina\CString\CString\obj\Release\CString.pdb
+D:\workspace\oschina\CString\CString\bin\Release\UnityEngine.dll
+D:\workspace\oschina\CString\CString\bin\Release\UnityEngine.xml
+D:\workspace\oschina\CString\CString\obj\Release\CString.csprojResolveAssemblyReference.cache
