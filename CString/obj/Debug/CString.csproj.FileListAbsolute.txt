@@ -1,5 +1,0 @@
-D:\workspace\oschina\CString\CString\bin\Debug\CString.dll
-D:\workspace\oschina\CString\CString\bin\Debug\CString.pdb
-D:\workspace\oschina\CString\CString\obj\Debug\CString.csprojResolveAssemblyReference.cache
-D:\workspace\oschina\CString\CString\obj\Debug\CString.dll
-D:\workspace\oschina\CString\CString\obj\Debug\CString.pdb

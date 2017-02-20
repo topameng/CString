@@ -29,3 +29,4 @@ sysinfo.txt
 *.apk
 *.unitypackage
 /UnitTest/Library
+/CString/obj
