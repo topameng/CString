@@ -3200,12 +3200,12 @@ public class CString : IDisposable
 
     public CString AppendLine()
     {
-        return Append(Environment.CommandLine);      
+        return Append(Environment.NewLine);      
     }
 
     public CString AppendLine(string value)
     {        
-        return Append(value).Append(Environment.CommandLine);        
+        return Append(value).Append(Environment.NewLine);        
     }
 
     public CString Insert(int index, char[] value)
