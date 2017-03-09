@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+Copyright (c) 2016-2017 topameng(topameng@qq.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -17,7 +38,8 @@ public class CString : IDisposable
     static Queue<CStringBlock> blocks = new Queue<CStringBlock>();
     static Stack<CStringBlock> stack = new Stack<CStringBlock>();
 
-    static CStringBlock currentBlock = null; 
+    static CStringBlock currentBlock = null;
+    static string NewLine = Environment.NewLine;
 
     [NonSerialized]
     char[] _buffer;
@@ -688,7 +710,9 @@ public class CString : IDisposable
 
         return Split(separator, count, StringSplitOptions.None);        
     }
-      
+
+    static List<CString> splitList = new List<CString>();
+
     public CString[] Split(char[] separator, int count, StringSplitOptions options)
     {
         if (separator == null || separator.Length == 0)
@@ -712,10 +736,10 @@ public class CString : IDisposable
         {
             return new CString[0];
         }
-
-        List<CString> list = new List<CString>();
+        
         int pos = 0;
         int matchCount = 0;
+        splitList.Clear();
 
         while (pos < this.Length)
         {
@@ -742,12 +766,12 @@ public class CString : IDisposable
 
             if (!(matchPos == pos && removeEmpty))
             {
-                if (list.Count == count - 1)
+                if (splitList.Count == count - 1)
                 {
                     break;
                 }
 
-                list.Add(Substring(pos, matchPos - pos));
+                splitList.Add(Substring(pos, matchPos - pos));
             }
 
             pos = matchPos + 1;
@@ -760,17 +784,17 @@ public class CString : IDisposable
         }
 
         // string contained only separators
-        if (removeEmpty && matchCount != 0 && pos == this.Length && list.Count == 0)
+        if (removeEmpty && matchCount != 0 && pos == this.Length && splitList.Count == 0)
         {
             return new CString[0];
         }
 
         if (!(removeEmpty && pos == this.Length))
         {
-            list.Add(this.Substring(pos));
+            splitList.Add(this.Substring(pos));
         }
 
-        return list.ToArray();
+        return splitList.ToArray();                
     }
 
     public CString[] Split(string[] separator, int count, StringSplitOptions options)
@@ -801,10 +825,10 @@ public class CString : IDisposable
         {
             return new CString[0];
         }
-
-        List<CString> list = new List<CString>();
+        
         int pos = 0;
         int matchCount = 0;
+        splitList.Clear();
 
         while (pos < this.Length)
         {
@@ -837,12 +861,12 @@ public class CString : IDisposable
 
             if (!(matchPos == pos && removeEmpty))
             {
-                if (list.Count == count - 1)
+                if (splitList.Count == count - 1)
                 {
                     break;
                 }
 
-                list.Add(Substring(pos, matchPos - pos));
+                splitList.Add(Substring(pos, matchPos - pos));
             }
 
             pos = matchPos + separator[matchIndex].Length;
@@ -855,17 +879,17 @@ public class CString : IDisposable
         }
 
         // string contained only separators
-        if (removeEmpty && matchCount != 0 && pos == this.Length && list.Count == 0)
+        if (removeEmpty && matchCount != 0 && pos == this.Length && splitList.Count == 0)
         {
             return new CString[0];
         }
 
         if (!(removeEmpty && pos == this.Length))
         {
-            list.Add(this.Substring(pos));
+            splitList.Add(this.Substring(pos));
         }
 
-        return list.ToArray();
+        return splitList.ToArray();
     }
     
     public CString[] Split(char[] separator, StringSplitOptions options)
@@ -2830,6 +2854,7 @@ public class CString : IDisposable
             CharCopy(dest + length, src, right.length);
         }
 
+        length = count;
         return this;
     }
 
@@ -3200,12 +3225,12 @@ public class CString : IDisposable
 
     public CString AppendLine()
     {
-        return Append(Environment.NewLine);      
+        return Append(NewLine);      
     }
 
     public CString AppendLine(string value)
     {        
-        return Append(value).Append(Environment.NewLine);        
+        return Append(value).Append(NewLine);        
     }
 
     public CString Insert(int index, char[] value)
